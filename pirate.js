@@ -109,7 +109,14 @@ var Question = function(text, type) {
 };
 
 var question = new Question ('Do ye like yer drinks strong?', 'strong');
-
+bob.addQuestion(question);
+var question = new Question ('Do ye like it with a salty tang?', 'salty');
+bob.addQuestion(question);
+var question = new Question ('Are ye a lubber who likes it bitter?', 'bitter');
+bob.addQuestion(question);
+var question = new Question ('Would ye like a bit of sweetness with yer poison?', 'sweet');
+bob.addQuestion(question);
+var question = new Question ('Are ye one for a fruity finish?', 'fruity');
 bob.addQuestion(question);
 
 var Drink = function () {
