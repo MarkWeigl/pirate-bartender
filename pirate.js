@@ -93,7 +93,7 @@ Bartender.prototype.addQuestion = function(question) {
 
 Bartender.prototype.createDrink = function(preferences, pantry) {
   var drink = new Drink;
-  for (var i = 0; i < preferences.length; i++;) {
+  for (var i = 0; i < preferences.length; i++) {
     var ingredient = pantry.getIngredient(preferences[i]);
     drink.addIngredient(ingredient);
   }
@@ -128,3 +128,25 @@ Drink.prototype.addIngredient = function(ingredient) {
   this.ingredients.push(ingredient);
 };
 
+function Bartender(questions){
+  this.question = questions;
+  this.currentQuestion = null;
+  this.userPreferences = {};
+  this.preparedDrink = null;
+}
+
+Pantry.prototype.getRandomByTaste = function(taste){
+  var filteredIngredients = this.ingredients.filter(function(ingredient){
+    return ingredient.category === taste;
+  });
+};
+
+Bartender.prototype.createDrink = function(pantry){
+  var prop;
+  this.preparedDrink = [];
+
+  for (var preference in this.userPreferences) {
+    if (this.userPreferences[preference]) this.preparedDrink.push(pantry.getRandomByTaste(preference).name);
+  }
+  return this.preparedDrink.length > 0;
+};
