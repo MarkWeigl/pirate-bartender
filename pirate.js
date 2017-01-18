@@ -32,16 +32,49 @@ $(document).ready(function(){
   var ing = new Ingredient("strong", "A glug of rum");
   myPantry.addIngredient(ing);
 
-  ing = new Ingredient("strong", "A shot of whiskey");
+  ing = new Ingredient("strong", "A slug of whiskey");
   myPantry.addIngredient(ing);
 
-  ing = new Ingredient("strong", "A jigger of brandy");
+  ing = new Ingredient("strong", "splash of gin");
   myPantry.addIngredient(ing);
 
-  ing = new Ingredient("strong", "A flaggon of mead");
+  ing = new Ingredient("bitter", "splash of tonic");
   myPantry.addIngredient(ing);
 
-  ing = new Ingredient("sweet", "A spoon of sugar");
+  ing = new Ingredient("sweet", "Sugar cube");
+  myPantry.addIngredient(ing);
+
+  ing = new Ingredient("salty", "Olive on a stick");
+  myPantry.addIngredient(ing);
+
+  ing = new Ingredient("salty", "salt-dusted rim");
+  myPantry.addIngredient(ing);
+
+  ing = new Ingredient("salty", "rasher of bacon");
+  myPantry.addIngredient(ing);
+
+  ing = new Ingredient("bitter", "Shake of bitters");
+  myPantry.addIngredient(ing);
+
+  ing = new Ingredient("bitter", "splash of tonic");
+  myPantry.addIngredient(ing);
+
+  ing = new Ingredient("bitter", "twist of lemon peel");
+  myPantry.addIngredient(ing);
+
+  ing = new Ingredient("sweet", "spoonful of honey");
+  myPantry.addIngredient(ing);
+
+  ing = new Ingredient("sweet", "splash of cola");
+  myPantry.addIngredient(ing);
+
+  ing = new Ingredient("fruity", "slice of orange");
+  myPantry.addIngredient(ing);
+
+  ing = new Ingredient("fruity", "dash of cassis");
+  myPantry.addIngredient(ing);
+
+    ing = new Ingredient("fruity", "cherry on top");
   myPantry.addIngredient(ing);
 
   var Customer = function(name) {
@@ -75,13 +108,15 @@ $(document).ready(function(){
     this.questions.push(question);
   };
 
-  Bartender.prototype.createDrink = function(preferences, pantry) {
+  Bartender.prototype.create = function(preferences, pantry) {
     var drink = new Drink;
     for (var i = 0; i < preferences.length; i++) {
       var ingredient = pantry.getIngredient(preferences[i]);
       drink.addIngredient(ingredient);
     }
   }
+
+  $("#serveddrink").hide();
 
   var bob = new Bartender('Bob');
 
@@ -90,16 +125,18 @@ $(document).ready(function(){
     this.type = type;
   };
 
-  var question = new Question ('Do ye like yer drinks strong?', 'strong');
-  bob.addQuestion(question);
-  var question = new Question ('Do ye like it with a salty tang?', 'salty');
-  bob.addQuestion(question);
-  var question = new Question ('Are ye a lubber who likes it bitter?', 'bitter');
-  bob.addQuestion(question);
-  var question = new Question ('Would ye like a bit of sweetness with yer poison?', 'sweet');
-  bob.addQuestion(question);
-  var question = new Question ('Are ye one for a fruity finish?', 'fruity');
-  bob.addQuestion(question);
+  var drink = new drink ('Xtra Strong Bulldog');
+  bob.createDrink();
+  var drink = new drink ('Salty Tabby');
+  bob.createDrink();
+  var drink = new drink ('Bitter Rattlesnake');
+  bob.createDrink()
+  var drink = new drink ('Sweet Parrot');
+  bob.createDrink();
+  var drink = new drink ('Fruity Poodle');
+  bob.createDrink();
+
+
 
   var Drink = function () {
     this.name = '';
@@ -116,6 +153,17 @@ $(document).ready(function(){
     });
   };
 
+  var question = new Question ('Do ye like yer drinks strong?', 'strong');
+  bob.addQuestion(question);
+  var question = new Question ('Do ye like it with a salty tang?', 'salty');
+  bob.addQuestion(question);
+  var question = new Question ('Are ye a lubber who likes it bitter?', 'bitter');
+  bob.addQuestion(question);
+  var question = new Question ('Would ye like a bit of sweetness with yer poison?', 'sweet');
+  bob.addQuestion(question);
+  var question = new Question ('Are ye one for a fruity finish?', 'fruity');
+  bob.addQuestion(question);
+
   Bartender.prototype.createDrink = function(pantry){
     var prop;
     this.preparedDrink = [];
@@ -124,6 +172,7 @@ $(document).ready(function(){
       if (this.userPreferences[preference]) this.preparedDrink.push(pantry.getRandomByTaste(preference).name);
     }
     return this.preparedDrink.length > 0;
+
   };
 
   Bartender.prototype.askQuestions = function(){
@@ -146,10 +195,8 @@ $(document).ready(function(){
           customer.addPreference(that.questions[i].type);
         } 
       }
-
-      
-      
-     // $("#preference").show();
+      $("#questions").hide();
+      $("#serveddrink").show();
       console.log(customer);
     });
    // }
@@ -163,9 +210,11 @@ $(document).ready(function(){
     customer = new Customer(name);
     $("#greet").hide();
     bob.askQuestions();
-    console.log(name);
   });
-  
-  
 
+  var Question = function(text, type) {
+    this.text = text;
+    this.type = type;
+  };
+  
 });
